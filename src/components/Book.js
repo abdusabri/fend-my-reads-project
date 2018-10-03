@@ -16,7 +16,8 @@ class Book extends Component {
                 <div className='book'>
                     <div className='book-top'>
                         <div className='book-cover'>
-                            <img src={this.props.coverImageUrl}/>
+                            <img src={this.props.coverImageUrl}
+                                alt={this.props.title}/>
                         </div>
                         <MoveToShelf/>
                     </div>

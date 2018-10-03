@@ -26,7 +26,8 @@ class BooksApp extends React.Component {
                     {this.state.shelves.map((shelf) => (
                       <BookShelf
                         key={shelf.id}
-                        title={shelf.title} />
+                        title={shelf.title}
+                        books={[]}/>
                     ))}
                   </div>
                 </div>
