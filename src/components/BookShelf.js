@@ -16,10 +16,11 @@ class BookShelf extends Component {
                     <ol className='books-grid'>
                         {this.props.books.map((book) => (
                             <Book
+                                key={book.id}
                                 id={book.id}
                                 title={book.title}
                                 coverImageUrl={book.coverImageUrl}
-                                authors={book.coverImageUrl}/>
+                                authors={book.authors}/>
                         ))}
                     </ol>
                 </div>
