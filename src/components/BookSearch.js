@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Link} from 'react-router-dom'
+import Book from './Book'
 
 class BookSearch extends Component {
+    books = []
+
     render() {
         return (
             <div className='search-books'>
                 <div className='search-books-bar'>
-                    {/* <a className='close-search' onClick={() => this.setState({ showSearchPage: false })}>Close</a> */}
                     <Link className='close-search' to='/'>Close</Link>
                     <div className='search-books-input-wrapper'>
                         {/*
@@ -21,7 +23,15 @@ class BookSearch extends Component {
                     </div>
                 </div>
                 <div className='search-books-results'>
-                    <ol className='books-grid'></ol>
+                    <ol className='books-grid'>
+                        {this.books.map((book) => (
+                            <Book
+                                id={book.id}
+                                title={book.title}
+                                coverImageUrl={book.coverImageUrl}
+                                authors={book.coverImageUrl}/>
+                        ))}
+                    </ol>
                 </div>
             </div>
         )
