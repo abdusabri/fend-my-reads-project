@@ -41,7 +41,11 @@ class BooksApp extends React.Component {
   }
 
   handleMoveBookToShelf = (bookId, shelf) =>{
-    console.log(`AppComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
+    // console.log(`AppComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
+    const booksCopy = [...this.state.books]
+    const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
+    booksCopy[bookIndex].shelf = shelf
+    this.setState({books: booksCopy})
   }
 
   render() {

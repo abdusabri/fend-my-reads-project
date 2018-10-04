@@ -10,7 +10,6 @@ class BookShelf extends Component {
     }
 
     handleMoveBookToShelf = (bookId, shelf) =>{
-        console.log(`BookShelfComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
         this.props.onMoveBookToShelf(bookId, shelf)
     }
 
