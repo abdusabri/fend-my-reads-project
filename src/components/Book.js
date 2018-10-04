@@ -11,6 +11,10 @@ class Book extends Component {
         shelf: PropTypes.string.isRequired
     }
 
+    handleMoveBookToShelf = (shelf) =>{
+        console.log(`Book: "${this.props.title}" has been moved to "${shelf}" Shelf`);
+    }
+
     render () {
         return (
             <li>
@@ -20,7 +24,9 @@ class Book extends Component {
                             <img src={this.props.coverImageUrl}
                                 alt={this.props.title}/>
                         </div>
-                        <MoveToShelf/>
+                        <MoveToShelf
+                            bookShelf={this.props.shelf}
+                            onMoveBookToShelf={this.handleMoveBookToShelf}/>
                     </div>
                     <div className='book-title'>{this.props.title}</div>
                     <div className='book-authors'>{this.props.authors.join(" ")}</div>
