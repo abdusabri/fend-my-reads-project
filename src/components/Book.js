@@ -7,7 +7,8 @@ class Book extends Component {
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         coverImageUrl: PropTypes.string.isRequired,
-        authors: PropTypes.array.isRequired
+        authors: PropTypes.array.isRequired,
+        shelf: PropTypes.string.isRequired
     }
 
     render () {

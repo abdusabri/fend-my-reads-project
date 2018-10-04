@@ -11,20 +11,17 @@ class Shelves {
         {
           id: 1,
           title: 'Currently Reading',
-          value: 'currentlyReading',
-          books: []
+          value: 'currentlyReading'
         },
         {
           id: 2,
           title: 'Want to Read',
-          value: 'wantToRead',
-          books: []
+          value: 'wantToRead'
         },
         {
           id: 3,
           title: 'Read',
-          value: 'read',
-          books: []
+          value: 'read'
         }
     ]
 }
