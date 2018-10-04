@@ -8,6 +8,11 @@ class BookShelf extends Component {
         books: PropTypes.array.isRequired
     }
 
+    handleMoveBookToShelf = (bookId, shelf) =>{
+        console.log(`BookShelfComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
+
+    }
+
     render () {
         return (
             <div className='bookshelf'>
@@ -21,7 +26,8 @@ class BookShelf extends Component {
                                 title={book.title}
                                 coverImageUrl={book.coverImageUrl}
                                 authors={book.authors}
-                                shelf={book.shelf}/>
+                                shelf={book.shelf}
+                                onMoveBookToShelf={this.handleMoveBookToShelf}/>
                         ))}
                     </ol>
                 </div>

@@ -8,11 +8,13 @@ class Book extends Component {
         title: PropTypes.string.isRequired,
         coverImageUrl: PropTypes.string.isRequired,
         authors: PropTypes.array.isRequired,
-        shelf: PropTypes.string.isRequired
+        shelf: PropTypes.string.isRequired,
+        onMoveBookToShelf: PropTypes.func.isRequired
     }
 
     handleMoveBookToShelf = (shelf) =>{
-        console.log(`Book: "${this.props.title}" has been moved to "${shelf}" Shelf`);
+        console.log(`BookComp. - BookId: "${this.props.id}" needs to be moved to "${shelf}" Shelf`)
+        this.props.onMoveBookToShelf(this.props.id, shelf)
     }
 
     render () {
