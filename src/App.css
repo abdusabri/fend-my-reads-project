@@ -169,6 +169,12 @@ body, .app {
   display: flex;
   align-items: flex-end;
 }
+
+.book-cover img {
+  max-height: 200px;
+  width: 128px;
+}
+
 .book-cover-title {
   padding: 20px 10px 0;
   text-align: center;

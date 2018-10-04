@@ -30,7 +30,7 @@ class Book extends Component {
                             onMoveBookToShelf={this.handleMoveBookToShelf}/>
                     </div>
                     <div className='book-title'>{this.props.title}</div>
-                    <div className='book-authors'>{this.props.authors.join(" ")}</div>
+                    <div className='book-authors'>{this.props.authors.join(" & ")}</div>
                 </div>
             </li>
         );
