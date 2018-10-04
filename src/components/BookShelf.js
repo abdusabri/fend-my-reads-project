@@ -5,12 +5,13 @@ import Book from './Book'
 class BookShelf extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
-        books: PropTypes.array.isRequired
+        books: PropTypes.array.isRequired,
+        onMoveBookToShelf: PropTypes.func.isRequired
     }
 
     handleMoveBookToShelf = (bookId, shelf) =>{
         console.log(`BookShelfComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
-
+        this.props.onMoveBookToShelf(bookId, shelf)
     }
 
     render () {

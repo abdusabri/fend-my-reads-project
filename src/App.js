@@ -40,6 +40,10 @@ class BooksApp extends React.Component {
     this.setState({ books : books})
   }
 
+  handleMoveBookToShelf = (bookId, shelf) =>{
+    console.log(`AppComp. - BookId: "${bookId}" needs to be moved to "${shelf}" Shelf`)
+  }
+
   render() {
     return (
       <div className='app'>
@@ -56,7 +60,8 @@ class BooksApp extends React.Component {
                       <BookShelf
                         key={shelf.id}
                         title={shelf.title}
-                        books={this.state.books.filter((book) => book.shelf === shelf.value)}/>
+                        books={this.state.books.filter((book) => book.shelf === shelf.value)}
+                        onMoveBookToShelf={this.handleMoveBookToShelf}/>
                     ))}
                   </div>
                 </div>
