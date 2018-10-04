@@ -4,7 +4,7 @@ import MoveToShelf from './MoveToShelf'
 
 class Book extends Component {
     static propTypes = {
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         coverImageUrl: PropTypes.string.isRequired,
         authors: PropTypes.array.isRequired,
