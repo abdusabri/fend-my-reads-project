@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link} from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from '../BooksAPI'
+import * as BookModel from '../models/BookModel'
 
 class BookSearch extends Component {
     state = {
@@ -17,14 +18,7 @@ class BookSearch extends Component {
                     this.setState({books: []})
                     return
                 }
-                const books = res.map((book) => ({
-                    id: book.id,
-                    title: book.title,
-                    coverImageUrl: book.imageLinks.smallThumbnail,
-                    authors: book.authors,
-                    shelf: book.shelf
-                }))
-                this.setState({books})
+                this.setState({books: res.map(BookModel.mapToBookModel)})
             })
             .catch((e) => console.log(e))
     }

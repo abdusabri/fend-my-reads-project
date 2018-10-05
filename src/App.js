@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Redirect, Switch, Link } from 'react-router-dom'
 import Shelves from './models/Shelves'
 import BookShelf from './components/BookShelf'
 import BookSearch from './components/BookSearch'
+import * as BookModel from './models/BookModel'
 
 class BooksApp extends React.Component {
   state = {
@@ -15,18 +16,10 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((res) => {
-          this.setState({books: res.map(this.createBookModel)})
+          this.setState({books: res.map(BookModel.mapToBookModel)})
       })
       .catch((err) => console.log(err))
   }
-
-  createBookModel = (book) => ({
-    id: book.id,
-    title: book.title,
-    coverImageUrl: book.imageLinks.smallThumbnail,
-    authors: book.authors,
-    shelf: book.shelf
-  })
 
   handleMoveBookToShelf = (bookId, shelf) => {
     const booksCopy = [...this.state.books]
