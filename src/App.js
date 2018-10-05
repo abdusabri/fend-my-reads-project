@@ -15,22 +15,42 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((res) => {
-          const books = res.map((book) => ({
-            id: book.id,
-            title: book.title,
-            coverImageUrl: book.imageLinks.smallThumbnail,
-            authors: book.authors,
-            shelf: book.shelf
-          }))
+          const books = res.map(this.createBookModel)
           this.setState({books})
       })
       .catch((err) => console.log(err))
   }
 
-  handleMoveBookToShelf = (bookId, shelf) =>{
+  createBookModel = (book) => ({
+    id: book.id,
+    title: book.title,
+    coverImageUrl: book.imageLinks.smallThumbnail,
+    authors: book.authors,
+    shelf: book.shelf
+  })
+
+  handleMoveBookToShelf = (bookId, shelf) => {
     const booksCopy = [...this.state.books]
-    booksCopy.find((b) => b.id === bookId).shelf = shelf
-    this.setState({books: booksCopy})
+    const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
+    BooksAPI.get(bookId)
+      .then((book) => BooksAPI.update(book, shelf)
+        .then(() => {
+          booksCopy[bookIndex].shelf = shelf
+          this.setState({booksCopy})
+        }))
+      .catch((err) => {
+        console.log(err)
+        // TODO: Improve handling of errors, considerations:
+        // 1) Error message to user
+        // 2) Cleaner solution for resetting the book shelf so that 
+        // the drop down in MoveToShelf comp. selects the correct 
+        // shelf (original)
+        const currentShelf = this.state.books[bookIndex].shelf
+        booksCopy[bookIndex].shelf = ''
+        this.setState({booksCopy})
+        booksCopy[bookIndex].shelf = currentShelf
+        this.setState({booksCopy})
+      })
   }
 
   render() {
