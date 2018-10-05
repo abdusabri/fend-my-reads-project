@@ -15,8 +15,7 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((res) => {
-          const books = res.map(this.createBookModel)
-          this.setState({books})
+          this.setState({books: res.map(this.createBookModel)})
       })
       .catch((err) => console.log(err))
   }
