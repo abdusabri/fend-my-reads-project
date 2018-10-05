@@ -29,8 +29,7 @@ class BooksApp extends React.Component {
 
   handleMoveBookToShelf = (bookId, shelf) =>{
     const booksCopy = [...this.state.books]
-    const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
-    booksCopy[bookIndex].shelf = shelf
+    booksCopy.find((b) => b.id === bookId).shelf = shelf
     this.setState({books: booksCopy})
   }
 
