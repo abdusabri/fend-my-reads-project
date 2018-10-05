@@ -1,9 +1,37 @@
 import React, { Component } from 'react'
 import { Link} from 'react-router-dom'
 import Book from './Book'
+import * as BooksAPI from '../BooksAPI'
 
 class BookSearch extends Component {
-    books = []
+    state = {
+        searchText: '',
+        books: []
+    }
+
+    handleTextChange = (e) => {
+        this.setState({searchText: e.target.value})
+        BooksAPI.search(e.target.value)
+            .then((res) => {
+                if(!res || res['error']) {
+                    this.setState({books: []})
+                    return
+                }
+                const books = res.map((book) => ({
+                    id: book.id,
+                    title: book.title,
+                    coverImageUrl: book.imageLinks.smallThumbnail,
+                    authors: book.authors,
+                    shelf: book.shelf
+                }))
+                this.setState({books})
+            })
+            .catch((e) => console.log(e))
+    }
+
+    handleMoveBookToShelf = (bookId, shelf) => {
+        console.log('Search Comp. wants to move a book to a shelf');
+    }
 
     render() {
         return (
@@ -19,17 +47,22 @@ class BookSearch extends Component {
                             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                             you don't find a specific author or title. Every search is limited by search terms.
                             */}
-                        <input type='text' placeholder='Search by title or author' />
+                        <input type='text' placeholder='Search by title or author' 
+                            onChange={this.handleTextChange}
+                            value={this.state.searchText}/>
                     </div>
                 </div>
                 <div className='search-books-results'>
                     <ol className='books-grid'>
-                        {this.books.map((book) => (
+                        {this.state.books.map((book) => (
                             <Book
+                                key={book.id}
                                 id={book.id}
                                 title={book.title}
                                 coverImageUrl={book.coverImageUrl}
-                                authors={book.coverImageUrl}/>
+                                authors={(book.authors)? book.authors : []}
+                                shelf={(book.shelf)? book.shelf : 'none'}
+                                onMoveBookToShelf={this.handleMoveBookToShelf}/>
                         ))}
                     </ol>
                 </div>
