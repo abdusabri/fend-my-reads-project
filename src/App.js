@@ -22,6 +22,7 @@ class BooksApp extends React.Component {
   }
 
   handleMoveBookToShelf = (bookId, shelf) => {
+    // TODO: Extract logic and make it reusable across components
     const booksCopy = [...this.state.books]
     const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
     BooksAPI.get(bookId)
@@ -45,6 +46,17 @@ class BooksApp extends React.Component {
       })
   }
 
+  handleSearchedBookMovedToShelf = (book) => {
+    const booksCopy = [...this.state.books]
+    const matchedBookIndex = booksCopy.findIndex((b) => b.id === book.id)
+    if (matchedBookIndex) {
+      booksCopy[matchedBookIndex] = book
+    } else {
+      booksCopy.push(book)
+    }
+    this.setState({ books: booksCopy })
+  }
+
   render() {
     return (
       <div className='app'>
@@ -58,7 +70,8 @@ class BooksApp extends React.Component {
             )} />
             <Route path='/search' render={() => (
                 <BookSearch 
-                  savedBooks={this.state.books}/>
+                  savedBooks={this.state.books}
+                  onBookMovedToShelf={this.handleSearchedBookMovedToShelf}/>
             )} />
             <Redirect from='*' to='/' />
           </Switch>

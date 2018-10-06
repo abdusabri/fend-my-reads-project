@@ -40,6 +40,7 @@ class BookSearch extends Component {
     }
 
     handleMoveBookToShelf = (bookId, shelf) => {
+        // TODO: Extract logic and make it reusable across components
         const booksCopy = [...this.state.books]
         const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
         BooksAPI.get(bookId)
@@ -47,6 +48,7 @@ class BookSearch extends Component {
                 .then(() => {
                     booksCopy[bookIndex].shelf = shelf
                     this.setState({ booksCopy })
+                    this.props.onBookMovedToShelf({...booksCopy[bookIndex]})
                 }))
             .catch((err) => {
                 console.log(err)
