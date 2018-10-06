@@ -92,8 +92,8 @@ class BookSearch extends Component {
                                 id={book.id}
                                 title={book.title}
                                 coverImageUrl={book.coverImageUrl}
-                                authors={(book.authors) ? book.authors : []}
-                                shelf={(book.shelf) ? book.shelf : 'none'}
+                                authors={book.authors}
+                                shelf={book.shelf}
                                 onMoveBookToShelf={this.handleMoveBookToShelf} />
                         ))}
                     </ol>
