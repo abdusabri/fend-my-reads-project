@@ -10,6 +10,10 @@ class BookSearch extends Component {
         books: []
     }
 
+    // Set when the componentDidMount event is fired
+    // and used to set the proper shelf value for searched books
+    savedBooks = []
+
     handleTextChange = (e) => {
         this.setState({searchText: e.target.value})
         BooksAPI.search(e.target.value)
@@ -18,9 +22,28 @@ class BookSearch extends Component {
                     this.setState({books: []})
                     return
                 }
-                this.setState({books: res.map(BookModel.mapToBookModel)})
+                const books = res.map(BookModel.mapToBookModel)
+                this.setBookShelves(books)
+                this.setState({books})
             })
             .catch((e) => console.log(e))
+    }
+
+    setBookShelves = (books) => {
+        this.savedBooks.forEach((savedBook) => {
+            const matchedBook = books.find((b) => b.id === savedBook.id)
+            if (matchedBook) {
+                matchedBook.shelf = savedBook.shelf
+            }
+        })
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then((res) => {
+                this.savedBooks = res.map(BookModel.mapToBookModel)
+            })
+            .catch((err) => console.log(err))
     }
 
     handleMoveBookToShelf = (bookId, shelf) => {
