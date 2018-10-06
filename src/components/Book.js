@@ -33,7 +33,7 @@ class Book extends Component {
                     <div className='book-authors'>{this.props.authors.join(" & ")}</div>
                 </div>
             </li>
-        );
+        )
     }
 }
 

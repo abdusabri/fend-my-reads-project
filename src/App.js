@@ -1,9 +1,9 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { BrowserRouter, Route, Redirect, Switch, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import Shelves from './models/Shelves'
-import BookShelf from './components/BookShelf'
+import MyReads from './components/MyReads'
 import BookSearch from './components/BookSearch'
 import BookModel from './models/BookModel'
 
@@ -39,9 +39,9 @@ class BooksApp extends React.Component {
         // shelf (original)
         const currentShelf = this.state.books[bookIndex].shelf
         booksCopy[bookIndex].shelf = ''
-        this.setState({booksCopy})
+        this.setState({ books: booksCopy })
         booksCopy[bookIndex].shelf = currentShelf
-        this.setState({booksCopy})
+        this.setState({ books: booksCopy })
       })
   }
 
@@ -51,25 +51,10 @@ class BooksApp extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' render={() => (
-              <div className='list-books'>
-                <div className='list-books-title'>
-                  <h1>MyReads</h1>
-                </div>
-                <div className='list-books-content'>
-                  <div>
-                    {this.state.shelves.map((shelf) => (
-                      <BookShelf
-                        key={shelf.id}
-                        title={shelf.title}
-                        books={this.state.books.filter((book) => book.shelf === shelf.value)}
-                        onMoveBookToShelf={this.handleMoveBookToShelf}/>
-                    ))}
-                  </div>
-                </div>
-                <div className='open-search'>
-                  <Link to='/search'>Add a book</Link>
-                </div>
-              </div>
+              <MyReads 
+                shelves={this.state.shelves}
+                books={this.state.books}
+                onMoveBookToShelf={this.handleMoveBookToShelf}/>
             )} />
             <Route path='/search' render={() => (
                 <BookSearch 
