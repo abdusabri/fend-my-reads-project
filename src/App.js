@@ -49,7 +49,7 @@ class BooksApp extends React.Component {
   handleSearchedBookMovedToShelf = (book) => {
     const booksCopy = [...this.state.books]
     const matchedBookIndex = booksCopy.findIndex((b) => b.id === book.id)
-    if (matchedBookIndex) {
+    if (matchedBookIndex >= 0) {
       booksCopy[matchedBookIndex] = book
     } else {
       booksCopy.push(book)
