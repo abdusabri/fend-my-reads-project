@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from '../BooksAPI'
 import * as BookModel from '../models/BookModel'
+import PropTypes from 'prop-types'
 
 class BookSearch extends Component {
+    static propTypes = {
+        savedBooks: PropTypes.array.isRequired
+    }
+
     state = {
         searchText: '',
         books: []
     }
-
-    // Set when the componentDidMount event is fired
-    // and used to set the proper shelf value for searched books
-    savedBooks = []
 
     handleTextChange = (e) => {
         this.setState({ searchText: e.target.value })
@@ -30,20 +31,12 @@ class BookSearch extends Component {
     }
 
     setBookShelves = (books) => {
-        this.savedBooks.forEach((savedBook) => {
+        this.props.savedBooks.forEach((savedBook) => {
             const matchedBook = books.find((b) => b.id === savedBook.id)
             if (matchedBook) {
                 matchedBook.shelf = savedBook.shelf
             }
         })
-    }
-
-    componentDidMount() {
-        BooksAPI.getAll()
-            .then((res) => {
-                this.savedBooks = res.map(BookModel.mapToBookModel)
-            })
-            .catch((err) => console.log(err))
     }
 
     handleMoveBookToShelf = (bookId, shelf) => {

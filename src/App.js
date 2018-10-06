@@ -72,7 +72,8 @@ class BooksApp extends React.Component {
               </div>
             )} />
             <Route path='/search' render={() => (
-                <BookSearch />
+                <BookSearch 
+                  savedBooks={this.state.books}/>
             )} />
             <Redirect from='*' to='/' />
           </Switch>
