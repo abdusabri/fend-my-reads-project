@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Redirect, Switch, Link } from 'react-router-dom'
 import Shelves from './models/Shelves'
 import BookShelf from './components/BookShelf'
 import BookSearch from './components/BookSearch'
-import * as BookModel from './models/BookModel'
+import BookModel from './models/BookModel'
 
 class BooksApp extends React.Component {
   state = {
