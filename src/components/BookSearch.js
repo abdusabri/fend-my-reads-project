@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from '../BooksAPI'
 import * as BookModel from '../models/BookModel'
@@ -15,16 +15,16 @@ class BookSearch extends Component {
     savedBooks = []
 
     handleTextChange = (e) => {
-        this.setState({searchText: e.target.value})
+        this.setState({ searchText: e.target.value })
         BooksAPI.search(e.target.value)
             .then((res) => {
-                if(!res || res['error']) {
-                    this.setState({books: []})
+                if (!res || res['error']) {
+                    this.setState({ books: [] })
                     return
                 }
                 const books = res.map(BookModel.mapToBookModel)
                 this.setBookShelves(books)
-                this.setState({books})
+                this.setState({ books })
             })
             .catch((e) => console.log(e))
     }
@@ -47,7 +47,27 @@ class BookSearch extends Component {
     }
 
     handleMoveBookToShelf = (bookId, shelf) => {
-        console.log('Search Comp. wants to move a book to a shelf');
+        const booksCopy = [...this.state.books]
+        const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
+        BooksAPI.get(bookId)
+            .then((book) => BooksAPI.update(book, shelf)
+                .then(() => {
+                    booksCopy[bookIndex].shelf = shelf
+                    this.setState({ booksCopy })
+                }))
+            .catch((err) => {
+                console.log(err)
+                // TODO: Improve handling of errors, considerations:
+                // 1) Error message to user
+                // 2) Cleaner solution for resetting the book shelf so that 
+                // the drop down in MoveToShelf comp. selects the correct 
+                // shelf (original)
+                const currentShelf = this.state.books[bookIndex].shelf
+                booksCopy[bookIndex].shelf = ''
+                this.setState({ booksCopy })
+                booksCopy[bookIndex].shelf = currentShelf
+                this.setState({ booksCopy })
+            })
     }
 
     render() {
@@ -64,9 +84,9 @@ class BookSearch extends Component {
                             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                             you don't find a specific author or title. Every search is limited by search terms.
                             */}
-                        <input type='text' placeholder='Search by title or author' 
+                        <input type='text' placeholder='Search by title or author'
                             onChange={this.handleTextChange}
-                            value={this.state.searchText}/>
+                            value={this.state.searchText} />
                     </div>
                 </div>
                 <div className='search-books-results'>
@@ -77,9 +97,9 @@ class BookSearch extends Component {
                                 id={book.id}
                                 title={book.title}
                                 coverImageUrl={book.coverImageUrl}
-                                authors={(book.authors)? book.authors : []}
-                                shelf={(book.shelf)? book.shelf : 'none'}
-                                onMoveBookToShelf={this.handleMoveBookToShelf}/>
+                                authors={(book.authors) ? book.authors : []}
+                                shelf={(book.shelf) ? book.shelf : 'none'}
+                                onMoveBookToShelf={this.handleMoveBookToShelf} />
                         ))}
                     </ol>
                 </div>
