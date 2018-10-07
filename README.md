@@ -16,7 +16,7 @@ Following are some articles and links that were very helpful for me while comple
 
 - [ES6 - Arrays](https://www.tutorialspoint.com/es6/es6_arrays.htm)
 
-- Source of image used when book thumbnail is unavailable [https://icons8.com](https://icons8.com) [Embed png from CDN](https://png.icons8.com)
+- Source of image used when book thumbnail is unavailable ([https://icons8.com](https://icons8.com), [Embed png from CDN](https://png.icons8.com))
 
 ----------------------------------------------------------
 
