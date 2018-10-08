@@ -17,7 +17,11 @@ class BookSearch extends Component {
 
     handleTextChange = (e) => {
         this.setState({ searchText: e.target.value })
-        BooksAPI.search(e.target.value)
+        this.searchBooks(e.target.value)
+    }
+
+    searchBooks = async (query) => {
+        BooksAPI.search(query)
             .then((res) => {
                 if (!res || res['error']) {
                     this.setState({ books: [] })
@@ -27,7 +31,7 @@ class BookSearch extends Component {
                 this.setBookShelves(books)
                 this.setState({ books })
             })
-            .catch((e) => console.log(e))
+            .catch((err) => console.log(err))
     }
 
     setBookShelves = (books) => {
