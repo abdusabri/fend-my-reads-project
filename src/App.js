@@ -8,8 +8,10 @@ import BookSearch from './components/BookSearch'
 import BookModel from './models/BookModel'
 
 class BooksApp extends React.Component {
+  
+  shelves = Shelves.shelves
+  
   state = {
-    shelves: Shelves.shelves,
     books: []
   }
 
@@ -64,7 +66,7 @@ class BooksApp extends React.Component {
           <Switch>
             <Route exact path='/' render={() => (
               <MyReads 
-                shelves={this.state.shelves}
+                shelves={this.shelves}
                 books={this.state.books}
                 onMoveBookToShelf={this.handleMoveBookToShelf}/>
             )} />
