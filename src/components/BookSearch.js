@@ -4,6 +4,7 @@ import Book from './Book'
 import * as BooksAPI from '../BooksAPI'
 import BookModel from '../models/BookModel'
 import PropTypes from 'prop-types'
+import debounce from 'lodash.debounce'
 
 class BookSearch extends Component {
     static propTypes = {
@@ -17,10 +18,17 @@ class BookSearch extends Component {
 
     handleTextChange = (e) => {
         this.setState({ searchText: e.target.value })
-        this.searchBooks(e.target.value)
+        this.searchBooksDebounced(e.target.value)
     }
 
-    searchBooks = async (query) => {
+    searchBooksDebounced = debounce(this.searchBooks, 250)
+
+    componentWillUnmount() {
+        this.searchBooksDebounced.cancel()
+    }
+
+    //searchBooks = async (query) => {
+    async searchBooks (query) {
         BooksAPI.search(query)
             .then((res) => {
                 if (!res || res['error']) {
