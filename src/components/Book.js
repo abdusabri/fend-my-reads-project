@@ -1,40 +1,40 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import MoveToShelf from './MoveToShelf'
 
-class Book extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        coverImageUrl: PropTypes.string.isRequired,
-        authors: PropTypes.array.isRequired,
-        shelf: PropTypes.string.isRequired,
-        onMoveBookToShelf: PropTypes.func.isRequired
+const Book = (props) => {
+    
+    const handleMoveBookToShelf = (shelf) =>{
+        props.onMoveBookToShelf(props.id, shelf)
     }
 
-    handleMoveBookToShelf = (shelf) =>{
-        this.props.onMoveBookToShelf(this.props.id, shelf)
-    }
-
-    render () {
-        return (
-            <li>
-                <div className='book'>
-                    <div className='book-top'>
-                        <div className='book-cover'>
-                            <img src={this.props.coverImageUrl}
-                                alt={this.props.title}/>
-                        </div>
-                        <MoveToShelf
-                            bookShelf={this.props.shelf}
-                            onMoveBookToShelf={this.handleMoveBookToShelf}/>
+    
+    return (
+        <li>
+            <div className='book'>
+                <div className='book-top'>
+                    <div className='book-cover'>
+                        <img src={props.coverImageUrl}
+                            alt={props.title}/>
                     </div>
-                    <div className='book-title'>{this.props.title}</div>
-                    <div className='book-authors'>{this.props.authors.join(" & ")}</div>
+                    <MoveToShelf
+                        bookShelf={props.shelf}
+                        onMoveBookToShelf={handleMoveBookToShelf}/>
                 </div>
-            </li>
-        )
-    }
+                <div className='book-title'>{props.title}</div>
+                <div className='book-authors'>{props.authors.join(" & ")}</div>
+            </div>
+        </li>
+    )
+}
+
+Book.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    coverImageUrl: PropTypes.string.isRequired,
+    authors: PropTypes.array.isRequired,
+    shelf: PropTypes.string.isRequired,
+    onMoveBookToShelf: PropTypes.func.isRequired
 }
 
 export default Book
