@@ -4,6 +4,24 @@
 
 This is the 6th project as part of my Front-End Web Development Nanodegree. Starter code was provided, which included styles, a back-end service, core app structure created by Create React App, and some static HTML markup. And the scope of this project was to implement the functionality of the app using React. This included deciding on, and implementing the model, components, event propagation, props, state, and routing/URL management.
 
+### App Description
+
+- **MyReads** is a simple book tracking app, where you can search and add books to your reading library (**Shelves**)
+  
+- There are 3 shelves
+
+  - *Currently Reading*: Books you are currently reading
+  - *Want To Read*: Books that you want to read in a future time
+  - *Read*: Books that you already read
+
+- The default view (*MyReads*) lists the shelves and the books on each shelf
+
+- From the *MyReads* view, you can click *Add* at the bottom corner to search and add books
+
+- In the *Search* view, you can type the search terms/keywords and the app will display matching books
+
+- For each book, whether on the *Search* view or the *MyReads* view, you can move the book to any of the 3 shelves. Or you can select "none" to remove the book from your library (If a searched book is already in your library, and you are about to move to a shelf, the value corresponding to the book's shelf will be pre-selected)
+
 ## References and Credits
 
 Following are some articles and links that were very helpful for me while completing the project work:
