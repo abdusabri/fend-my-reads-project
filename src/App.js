@@ -15,7 +15,7 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     BooksAPI.getAll()
       .then((res) => {
           this.setState({books: res.map(BookModel.mapToBookModel)})
@@ -23,7 +23,7 @@ class BooksApp extends React.Component {
       .catch((err) => console.log(err))
   }
 
-  handleMoveBookToShelf = (bookId, shelf) => {
+  handleMoveBookToShelf = async (bookId, shelf) => {
     // TODO: Extract logic and make it reusable across components
     const booksCopy = [...this.state.books]
     const bookIndex = booksCopy.findIndex((b) => b.id === bookId)
